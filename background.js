@@ -1,0 +1,1 @@
+walk(document.body);
