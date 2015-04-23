@@ -1,4 +1,19 @@
 //  walk(document.body);
+//chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//      console.log('request:', request);
+//    console.log(sender.tab ?
+//                "from a content script:" + sender.tab.url :
+//                "from the extension");
+//    if (request.greeting == "hello")
+//      sendResponse({farewell: "goodbye"});
+//      console.log('sender:', sender);
+//  });
+
+chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+  if(message.method == 'test')
+    console.log('Got message');
+});
+
 
   function walk(node)
   {
