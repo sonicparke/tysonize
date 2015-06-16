@@ -1,8 +1,6 @@
 // Listen for button click
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-
   if ( request.message === 'tysonize' ) {
-      console.log('request.tysonized:', request.tysonized);
       walk(document.body, request.tysonized);
     }
 
@@ -40,6 +38,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   {
     var v = textNode.nodeValue;
 
+//console.log('tysonized1:', tysonized);
+
     if (!tysonized) {
       v = v.replace(/St/g, "Th");
       v = v.replace(/st/g, "th");
@@ -47,16 +47,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       v = v.replace(/S/g, "Th");
       v = v.replace(/s/g, "th");
       v = v.replace(/sss/g, "th");
-
+//      console.log('tysonized2:', tysonized);
     }
     else {
-      v = v.replace(/St/g, "St");
-      v = v.replace(/st/g, "st");
-      v = v.replace(/ts/g, "ts");
-      v = v.replace(/S/g, "S");
-      v = v.replace(/s/g, "s");
-      v = v.replace(/sss/g, "sss");
-
+      v = v.replace(/Th/g, "St");
+      v = v.replace(/th/g, "st");
+      v = v.replace(/th/g, "ts");
+      v = v.replace(/Th/g, "S");
+      v = v.replace(/th/g, "s");
+      v = v.replace(/th/g, "sss");
+//      console.log('tysonized3:', tysonized);
     }
 
     textNode.nodeValue = v;
