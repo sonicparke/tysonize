@@ -1,29 +1,22 @@
-//  walk(document.body);
-//chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//      console.log('request:', request);
-//    console.log(sender.tab ?
-//                "from a content script:" + sender.tab.url :
-//                "from the extension");
-//    if (request.greeting == "hello")
-//      sendResponse({farewell: "goodbye"});
-//      console.log('sender:', sender);
-//  });
+// Listen for button click
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
-chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
-  if(message.method == 'test')
-    console.log('Got message');
+  if ( request.message === 'tysonize' ) {
+      console.log('request.tysonized:', request.tysonized);
+      walk(document.body, request.tysonized);
+    }
+
 });
 
-
-  function walk(node)
+  function walk(node, tysonized)
   {
       // Tysonize stole this from 'Cloud to Butt': https://github.com/panicsteve/cloud-to-butt
       // Cloud to Butt stole this function from here:
       // http://is.gd/mwZp7E
 
-      var child, next;
+    var child, next;
 
-      switch ( node.nodeType )
+    switch ( node.nodeType )
       {
           case 1:  // Element
           case 9:  // Document
@@ -38,22 +31,33 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
               break;
 
           case 3: // Text node
-              handleText(node);
+              handleText(node, tysonized);
               break;
       }
   }
 
-  function handleText(textNode)
+  function handleText(textNode, tysonized)
   {
-      var v = textNode.nodeValue;
+    var v = textNode.nodeValue;
 
+    if (!tysonized) {
       v = v.replace(/St/g, "Th");
       v = v.replace(/st/g, "th");
       v = v.replace(/ts/g, "th");
       v = v.replace(/S/g, "Th");
       v = v.replace(/s/g, "th");
-      v = v.replace(/ss/g, "th");
+      v = v.replace(/sss/g, "th");
 
+    }
+    else {
+      v = v.replace(/St/g, "St");
+      v = v.replace(/st/g, "st");
+      v = v.replace(/ts/g, "ts");
+      v = v.replace(/S/g, "S");
+      v = v.replace(/s/g, "s");
+      v = v.replace(/sss/g, "sss");
 
-      textNode.nodeValue = v;
+    }
+
+    textNode.nodeValue = v;
   }

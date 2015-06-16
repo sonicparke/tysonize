@@ -1,11 +1,7 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
-    console.log('tab:', tab);
+  var tysonized = true;
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {'method': 'test'}, function(response) {
-        console.log(response.farewell);
+      var activeTab = tabs[0].id;
+      chrome.tabs.sendMessage(activeTab, {'message': 'tysonize', tysonized: !tysonized})
     });
-});
-    
-//    chrome.tabs.sendMessage({'method': 'test'});
-        
 });

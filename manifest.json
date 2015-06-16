@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "browser_action": {
-      "default_icon": {
-        "19": "mike-19.png",
-        "38": "mike-38.png"
+    "default_icon": {
+      "19": "mike-19.png",
+      "38": "mike-38.png"
     },
     "default_title": "Tysonize this page!!"
   },
@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*","https://*/*"],
-      "js": ["content.js"]
+      "js": ["jquery-1.11.3.min.js","content.js"]
     }
   ]
 }
