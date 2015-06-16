@@ -1,12 +1,21 @@
 // Listen for button click
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+    if (!localStorage.tysonized) {
+      localStorage.setItem('tysonized', false);
+    }
+    else if (localStorage.tysonized === false || localStorage.tysonized === 'false') {
+      localStorage.setItem('tysonized', true);
+    }
+    else {
+      localStorage.setItem('tysonized', false);
+    }
   if ( request.message === 'tysonize' ) {
-      walk(document.body, request.tysonized);
+      walk(document.body);
     }
 
 });
 
-  function walk(node, tysonized)
+  function walk(node)
   {
       // Tysonize stole this from 'Cloud to Butt': https://github.com/panicsteve/cloud-to-butt
       // Cloud to Butt stole this function from here:
@@ -29,34 +38,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
               break;
 
           case 3: // Text node
-              handleText(node, tysonized);
+              handleText(node);
               break;
       }
   }
 
-  function handleText(textNode, tysonized)
+  function handleText(textNode)
   {
+//    var textNodeCache = textNode.nodeValue;
     var v = textNode.nodeValue;
 
-//console.log('tysonized1:', tysonized);
+    var tysonized = localStorage.tysonized;
 
-    if (!tysonized) {
+    if (!tysonized || tysonized === false || tysonized === 'false') {
       v = v.replace(/St/g, "Th");
       v = v.replace(/st/g, "th");
       v = v.replace(/ts/g, "th");
       v = v.replace(/S/g, "Th");
       v = v.replace(/s/g, "th");
       v = v.replace(/sss/g, "th");
-//      console.log('tysonized2:', tysonized);
     }
     else {
-      v = v.replace(/Th/g, "St");
-      v = v.replace(/th/g, "st");
-      v = v.replace(/th/g, "ts");
-      v = v.replace(/Th/g, "S");
-      v = v.replace(/th/g, "s");
-      v = v.replace(/th/g, "sss");
-//      console.log('tysonized3:', tysonized);
+      // Need to figure out reversing it cuz this doesn't work
+//      v = v.replace(textNodeCache);
     }
 
     textNode.nodeValue = v;
