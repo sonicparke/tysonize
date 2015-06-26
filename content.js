@@ -1,17 +1,21 @@
 // Listen for button click
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-    if (!localStorage.tysonized) {
-      localStorage.setItem('tysonized', false);
-    }
-    else if (localStorage.tysonized === false || localStorage.tysonized === 'false') {
-      localStorage.setItem('tysonized', true);
-    }
-    else {
-      localStorage.setItem('tysonized', false);
-    }
+//  var original;
+  if (!localStorage.tysonized) {
+//    original = jQuery('body').html();
+    localStorage.setItem('tysonized', false);
+  }
+  else if (localStorage.tysonized === false || localStorage.tysonized === 'false') {
+//    original = jQuery('body').html();
+    localStorage.setItem('tysonized', true);
+  }
+  else {
+//    jQuery('body').html(original);
+    localStorage.setItem('tysonized', false);
+  }
   if ( request.message === 'tysonize' ) {
-      walk(document.body);
-    }
+    walk(document.body);
+  }
 
 });
 
